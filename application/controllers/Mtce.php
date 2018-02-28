@@ -100,9 +100,13 @@
 				$this->data['error'] = '';
 
 			$fields = array(
-				'ftask'      => form_label('Task description') . form_input('task', $task->task),
-				'fpriority'  => form_label('Priority') . form_dropdown('priority', $this->app->priority(), $task->priority),
-				'zsubmit'    => form_submit('submit', 'Update the TODO task'),
+				'ftask'      => form_label('Task description') ."<br>" . form_input('task', $task->task)."<br>",
+				'fpriority'  => form_label('Priority') ."<br>". form_dropdown('priority', $this->app->priority(), $task->priority)."<br>",
+                                'fsize'      => form_label('Size') ."<br>". form_dropdown('size', $this->app->size(), $task->size)."<br>",
+                                'fgroup'      => form_label('Group') ."<br>". form_dropdown('group', $this->app->group(), $task->group)."<br>",
+                                'fstatus'      => form_label('Status') ."<br>". form_dropdown('status', $this->app->status(), $task->status)."<br>",
+                            
+                            'zsubmit'    => form_submit('submit', 'Update the TODO task')."<br>",
 			);
 			$this->data = array_merge($this->data, $fields);
 
