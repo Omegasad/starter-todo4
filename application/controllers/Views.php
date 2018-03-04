@@ -46,6 +46,29 @@ class Views extends Application
         $parms = ['display_tasks' => $this->tasks->getCategorizedTasks()];
         return $this->parser->parse('by_category', $parms, true);
     }
+    
+    	// complete method
+	function complete() {
+		
+		// to block some hack
+		$role = $this->session->userdata('userrole');
+		if ($role != ROLE_OWNER) redirect('/views');	
+		
+			// loop over the post fields, looking for flagged tasks
+			foreach($this->input->post() as $key=>$value) {
+					if (substr($key,0,4) == 'task') {
+						// find the associated task
+						// MORE COMING HERE
+						// find the associated task
+						// THIS is the "more coming" mentioned above
+						$taskid = substr($key,4);
+						$task = $this->tasks->get($taskid);
+						$task->status = 2; // complete
+						$this->tasks->update($task);
+					}
+			}
+			$this->index();
+	}
 }
 
     // return -1, 0, or 1 of $a's priority is higher, equal to, or lower than $b's
@@ -70,25 +93,3 @@ class Views extends Application
 			return 0;
 	}
 	
-	// complete method
-	function complete() {
-		
-		// to block some hack
-		$role = $this->session->userdata('userrole');
-		if ($role != ROLE_OWNER) redirect('/views');	
-		
-			// loop over the post fields, looking for flagged tasks
-			foreach($this->input->post() as $key=>$value) {
-					if (substr($key,0,4) == 'task') {
-						// find the associated task
-						// MORE COMING HERE
-						// find the associated task
-						// THIS is the "more coming" mentioned above
-						$taskid = substr($key,4);
-						$task = $this->tasks->get($taskid);
-						$task->status = 2; // complete
-						$this->tasks->update($task);
-					}
-			}
-			$this->index();
-	}
