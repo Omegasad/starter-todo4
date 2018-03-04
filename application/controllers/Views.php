@@ -34,7 +34,11 @@ class Views extends Application
         
         // and then pass them on
         $parms = ['display_tasks' => $converted];
-        return $this->parser->parse('by_priority', $parms, true);
+		
+		// INSERT the next two lines
+		$role = $this->session->userdata('userrole');
+		$parms['completer'] = ($role == ROLE_OWNER) ? '/views/complete' : '#';
+		return $this->parser->parse('by_priority', $parms, true);
     }
 
     function makeCategorizedPanel($tasks)
@@ -42,6 +46,29 @@ class Views extends Application
         $parms = ['display_tasks' => $this->tasks->getCategorizedTasks()];
         return $this->parser->parse('by_category', $parms, true);
     }
+    
+    	// complete method
+	function complete() {
+		
+		// to block some hack
+		$role = $this->session->userdata('userrole');
+		if ($role != ROLE_OWNER) redirect('/views');	
+		
+			// loop over the post fields, looking for flagged tasks
+			foreach($this->input->post() as $key=>$value) {
+					if (substr($key,0,4) == 'task') {
+						// find the associated task
+						// MORE COMING HERE
+						// find the associated task
+						// THIS is the "more coming" mentioned above
+						$taskid = substr($key,4);
+						$task = $this->tasks->get($taskid);
+						$task->status = 2; // complete
+						$this->tasks->update($task);
+					}
+			}
+			$this->index();
+	}
 }
 
     // return -1, 0, or 1 of $a's priority is higher, equal to, or lower than $b's
@@ -56,12 +83,13 @@ class Views extends Application
     }
 
     // return -1, 0, or 1 of $a's category name is earlier, equal to, or later than $b's
-function orderByCategory($a, $b)
-{
-    if ($a->group < $b->group)
-        return -1;
-    elseif ($a->group > $b->group)
-        return 1;
-    else
-        return 0;
-}
+	function orderByCategory($a, $b)
+	{
+		if ($a->group < $b->group)
+			return -1;
+		elseif ($a->group > $b->group)
+			return 1;
+		else
+			return 0;
+	}
+	
