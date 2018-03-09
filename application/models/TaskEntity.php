@@ -3,70 +3,61 @@
 /**
  * Task entity class, with setter methods for each property.
  */
-class Entity extends CI_Model {
+class TaskEntity extends Entity {
 
-	$id;
-	$flags;
-	$groups;
-	$priority;
-	$sizes;
-	$statues;
-	
-    // If this class has a setProp method, use it, else modify the property directly
-    public function __set($key, $value) {
-        // if a set* method exists for this key, 
-        // use that method to insert this value. 
-        // For instance, setName(...) will be invoked by $object->name = ...
-        // and setLastName(...) for $object->last_name = 
-        $method = 'set' . str_replace(' ', '', ucwords(str_replace(['-', '_'], ' ', $key)));
-
-        if (method_exists($this, $method))
-        {
-            $this->$method($value);
-
-            return $this;
-        }
-
-        // Otherwise, just set the property value directly.
-        $this->$key = $value;
-        
-        return $this;
-    }
+	protected $id;
+	protected $flags;
+	protected $groups;
+	protected $priority;
+	protected $sizes;
+	protected $statues;
 	
 	function setId($value) {
-		if ($value > 0) {
-			$id = $value;
-		}
+		if (empty($value))
+			throw new InvalidArgumentException('An Id must have a value');
+		else if ($value < 0) 
+			throw new InvalidArgumentException('Value must be greater than 0');
+		$this->id = $value;
+		return $this;
 	}
 	
 	function setFlags($value) {
-		if ($value != 0 || $value != 1) {
-			$flags = $value;
-		}
+		$allowed = ['Urgent'];
+		if (!in_array($value, $allowed))
+			throw new InvalidArgumentException('Invalid flag selection');
+		$this->flags = $value;
+		return $this;
 	}
 	
 	function setGroups($value) {
-		if ($value > 0 && $value < 5) {
-			$groups = $value;
-		}
-
+		$allowed = ['house','school','work','family'];
+		if (!in_array($value, $allowed))
+			throw new InvalidArgumentException('Invalid group selection');
+		$this->groups = $value;
+		return $this;
 	}
 	
 	function setPriority($value) {
-		if ($value > 0 && $value < 4) {
-			$priority = $value;
-		}
+		$allowed = ['low','medium','high'];
+		if (!in_array($value, $allowed))
+			throw new InvalidArgumentException('Invalid priority selection');
+		$this->priority = $value;
+		return $this;
 	}
 		
 	function setSizes($values) {
-		if ($values > 0 && $values < 4) {
-			$sizes = $value;
-		}
+		$allowed = ['small','medium','large'];
+		if (!in_array($value, $allowed))
+			throw new InvalidArgumentException('Invalid size selection');
+		$this->sizes = $value;
+		return $this;
 	}
 
 	function setStatues($values) {
-		if ($values > 0 && $values < 3) {
-			$statues = $value;
-		}
+		$allowed = ['in progress','complete'];
+		if (!in_array($value, $allowed))
+			throw new InvalidArgumentException('Invalid status selection');
+		$this->statues = $value;
+		return $this;
 	}	
 }
