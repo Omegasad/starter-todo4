@@ -38,7 +38,7 @@ use PHPUnit\Framework\TestCase;
 	{
 		$invalid = -1;
 		$this->expectException('InvalidArgumentException');
-		$this->item->id= $valid;
+		$this->item->id= $invalid;
 	}
 	
 	function testValidFlags()

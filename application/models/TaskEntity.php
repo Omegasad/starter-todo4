@@ -45,7 +45,7 @@ class TaskEntity extends Entity {
 		return $this;
 	}
 		
-	function setSizes($values) {
+	function setSizes($value) {
 		$allowed = ['small','medium','large'];
 		if (!in_array($value, $allowed))
 			throw new InvalidArgumentException('Invalid size selection');
@@ -53,7 +53,7 @@ class TaskEntity extends Entity {
 		return $this;
 	}
 
-	function setStatues($values) {
+	function setStatues($value) {
 		$allowed = ['in progress','complete'];
 		if (!in_array($value, $allowed))
 			throw new InvalidArgumentException('Invalid status selection');
