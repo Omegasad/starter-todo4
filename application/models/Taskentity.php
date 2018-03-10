@@ -6,6 +6,7 @@
 class TaskEntity extends Entity {
 
 	protected $id;
+        protected $tasks;
 	protected $flags;
 	protected $groups;
 	protected $priority;
@@ -18,6 +19,16 @@ class TaskEntity extends Entity {
 		else if ($value < 0) 
 			throw new InvalidArgumentException('Value must be greater than 0');
 		$this->id = $value;
+		return $this;
+	}
+        
+        function setTasks($value) {
+		
+                if(strlen($value) > 20)
+                    throw new InvalidArgumentException('Task is more than 20 characters');
+		if (empty($value))
+                    throw new InvalidArgumentException('Task cannot be empty');
+		$this->tasks = $value;
 		return $this;
 	}
 	
@@ -60,4 +71,5 @@ class TaskEntity extends Entity {
 		$this->statues = $value;
 		return $this;
 	}	
+        
 }
