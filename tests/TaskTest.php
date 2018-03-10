@@ -38,7 +38,36 @@ use PHPUnit\Framework\TestCase;
 	{
 		$invalid = -1;
 		$this->expectException('InvalidArgumentException');
-		$this->item->id= $valid;
+		$this->item->id= $invalid;
+	}
+        
+        function testValidTask()
+	{
+		$valid = "wash windows";
+		$this->item->tasks= $valid;
+		$this->assertEquals($valid,$this->item->tasks);
+	}
+	
+	function testInvalidTask()
+	{
+		$invalid = "wash all the windows in vancouver plus the ones"
+                        . "in toronto plus the ones in america plus the ones"
+                        . "in france wow that's so many windows to wash this "
+                        . "task is way too long";
+		$this->expectException('InvalidArgumentException');
+		$this->item->tasks= $invalid;
+	}
+        
+        function testEmptyTask()
+	{
+		$this->expectException('InvalidArgumentException');
+		$this->item->tasks= "";
+	}
+        
+        function testEmptyId()
+	{
+		$this->expectException('InvalidArgumentException');
+		$this->item->id= "";
 	}
 	
 	function testValidFlags()
@@ -68,6 +97,12 @@ use PHPUnit\Framework\TestCase;
 		$this->expectException('InvalidArgumentException');
 		$this->item->groups = $invalid;
 	}
+        
+        function testEmptyGroups()
+	{
+		$this->expectException('InvalidArgumentException');
+		$this->item->groups= "";
+	}
 	
 	function testValidPriorities()
 	{
@@ -81,6 +116,12 @@ use PHPUnit\Framework\TestCase;
 		$invalid = 'omega high';
 		$this->expectException('InvalidArgumentException');
 		$this->item->priority = $invalid;
+	}
+        
+        function testEmptyPriorities()
+	{
+		$this->expectException('InvalidArgumentException');
+		$this->item->priority= "";
 	}
 	
 	function testValidSizes()
@@ -96,6 +137,12 @@ use PHPUnit\Framework\TestCase;
 		$this->expectException('InvalidArgumentException');
 		$this->item->sizes = $invalid;
 	}	
+        
+        function testEmptySizes()
+	{
+		$this->expectException('InvalidArgumentException');
+		$this->item->sizes= "";
+	}
 	
 	function testValidStatuses()
 	{

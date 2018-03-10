@@ -6,6 +6,7 @@
 class TaskEntity extends Entity {
 
 	protected $id;
+        protected $tasks;
 	protected $flags;
 	protected $groups;
 	protected $priority;
@@ -18,6 +19,16 @@ class TaskEntity extends Entity {
 		else if ($value < 0) 
 			throw new InvalidArgumentException('Value must be greater than 0');
 		$this->id = $value;
+		return $this;
+	}
+        
+        function setTasks($value) {
+		
+                if(strlen($value) > 20)
+                    throw new InvalidArgumentException('Task is more than 20 characters');
+		if (empty($value))
+                    throw new InvalidArgumentException('Task cannot be empty');
+		$this->tasks = $value;
 		return $this;
 	}
 	
@@ -45,7 +56,7 @@ class TaskEntity extends Entity {
 		return $this;
 	}
 		
-	function setSizes($values) {
+	function setSizes($value) {
 		$allowed = ['small','medium','large'];
 		if (!in_array($value, $allowed))
 			throw new InvalidArgumentException('Invalid size selection');
@@ -53,11 +64,12 @@ class TaskEntity extends Entity {
 		return $this;
 	}
 
-	function setStatues($values) {
+	function setStatues($value) {
 		$allowed = ['in progress','complete'];
 		if (!in_array($value, $allowed))
 			throw new InvalidArgumentException('Invalid status selection');
 		$this->statues = $value;
 		return $this;
 	}	
+        
 }
