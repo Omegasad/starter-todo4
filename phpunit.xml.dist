@@ -27,9 +27,10 @@
         </whitelist>
     </filter>
     <logging>
-        <log type="coverage-clover" target="./tests/reports/coverage.xml"/>
-        <log type="coverage-html" target="./tests/reports/coverage.html" charset="UTF-8" yui="true" 
+        <log type="coverage-clover" target="tests/coverage/coverage.xml"/>
+        <log type="coverage-html" target="tests/coverage/coverage" charset="UTF-8" yui="true" 
              highlight="true" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-text" target="tests/coverage/coverage.txt" showUncoveredFiles="false"/>
     </logging>
 
 </phpunit>
