@@ -47,7 +47,7 @@ class XML_Model extends Memory_Model
 	protected function load()
 	{
 
-		/*
+		
 		if (($tasks = simplexml_load_file($this->_origin)) !== FALSE)
 		{
 			foreach ($tasks as $task) {
@@ -68,7 +68,7 @@ class XML_Model extends Memory_Model
 		// rebuild the keys table
 		$this->reindex();
 
-		*/
+		
 		if (file_exists(realpath($this->_origin))) {
 
 		    $this->xml = simplexml_load_file(realpath($this->_origin));
