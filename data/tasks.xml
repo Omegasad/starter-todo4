@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<task id="2">
+	<task>Mow the lawndddd </task>
+	<priority>1</priority>
+	<size>3</size>
+	<group>2</group>
+	<status>2</status>
+</task>
+
+<task id="3">
+	<task>Destory the car </task>
+	<priority>3</priority>
+	<size>2</size>
+	<group>1</group>
+	<status>2</status>
+</task>
+
+<task id="4">
+	<task>Paint the wall </task>
+	<priority>3</priority>
+	<size>3</size>
+	<group>4</group>
+	<status>1</status>
+</task>
+
+<task id="6">
+	<task>Instramural hockey game </task>
+	<priority>1</priority>
+	<size>2</size>
+	<group>4</group>
+</task>
+
+<task id="7">
+	<task>Canucks hokcey game </task>
+	<priority>3</priority>
+	<size>3</size>
+	<group>2<4group>
+	<deadline>20170305</deadline>
+</task>
+
+<task id="8">
+	<task>Buy steel-toed boots </task>
+	<priority>2</priority>
+	<size>1</size>
+	<group>3</group>
+</task>
+
+<task id="9">
+	<task>Learn French </task>
+	<priority>1</priority>
+	<size>3</size>
+	<group>3</group>
+	<deadline>20161232</deadline>
+	<status>1</status>
+</task>
+
+<task id="10">
+	<task>Hit the gym </task>
+	<priority>2</priority>
+	<size>1</size>
+	<group>4</group>
+</task>
+
+<task id="11">
+	<task>Pay bills </task>
+	<priority>3</priority>
+	<size>1</size>
+	<group>1</group>
+</task>
+
+<task id="13">
+	<task>Buy milk & bread </task>
+	<priority>2</priority>
+	<size>1</size>
+	<group>1</group>
+	<flag>1</flag>
+</task>
+
+<task id="14">
+	<task>Read War & Peace </task>
+	<priority>1</priority>
+	<size>3</size>
+	<group>1</group>
+</task>
+
+<task id="15">
+	<task>Organize the study </task>
+	<priority>1</priority>
+	<size>4</size>
+	<group>1</group>
+</task>
+
