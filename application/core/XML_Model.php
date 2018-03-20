@@ -46,13 +46,11 @@ class XML_Model extends Memory_Model
 	 */
 	protected function load()
 	{
-
-		
 		if (($tasks = simplexml_load_file($this->_origin)) !== FALSE)
 		{
 			foreach ($tasks as $task) {
 				$record = new stdClass();
-				$record->id = (int) $task->id;
+				$record->id = (int) $task['id'];
 				$record->task = (string) $task->task;
 				$record->priority = (int) $task->priority;
 				$record->size = (int) $task->size;
@@ -68,7 +66,7 @@ class XML_Model extends Memory_Model
 		// rebuild the keys table
 		$this->reindex();
 
-		
+		/*
 		if (file_exists(realpath($this->_origin))) {
 
 		    $this->xml = simplexml_load_file(realpath($this->_origin));
@@ -85,7 +83,7 @@ class XML_Model extends Memory_Model
 		    	return;
 		    }
 
-		    //get all xmlonjects into $xmlcontent
+		    //get all xmlonjects into $
 		    $rootkey = key($xmlarray);
 		    $xmlcontent = (object)$xmlarray->$rootkey;
 
@@ -128,6 +126,7 @@ class XML_Model extends Memory_Model
 		// --------------------
 		// rebuild the keys table
 		$this->reindex();
+		*/
 	}
 
 	/**
@@ -136,21 +135,20 @@ class XML_Model extends Memory_Model
 	 */
 	protected function store()
 	{
-		/*
+		
 		// rebuild the keys table
 		$this->reindex();
 		//---------------------
-		*/
+		
 		if (($handle = fopen($this->_origin, "w")) !== FALSE)
 		{
-		/*
 			fputcsv($handle, $this->_fields);
 			foreach ($this->_data as $key => $record)
 				fputcsv($handle, array_values((array) $record));
 			fclose($handle);
 		}
 		// --------------------
-		*/
+		
 		$xmlDoc = new DOMDocument( "1.0");
         $xmlDoc->preserveWhiteSpace = false;
         $xmlDoc->formatOutput = true;
@@ -163,7 +161,7 @@ class XML_Model extends Memory_Model
                 $task->appendChild($item);
                 }
                 $data->appendChild($task);
-            }
+            
             $xmlDoc->appendChild($data);
             $xmlDoc->saveXML($xmlDoc);
             $xmlDoc->save($this->_origin);
