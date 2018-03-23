@@ -70,7 +70,9 @@ class Tasks extends XML_Model {
                                 $task->setAttribute($itemkey, $record);
                               
                             } else {
-                                $item = $xmlDoc->createElement($itemkey, htmlspecialchars($record));
+                                if($record != NULL) {
+                                    $item = $xmlDoc->createElement($itemkey, htmlspecialchars($record));                                    
+                                }
                                 $task->appendChild($item);
                             }
                         }
