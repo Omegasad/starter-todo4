@@ -79,8 +79,6 @@ class Tasks extends XML_Model {
                         $xmlDoc->appendChild($data);
                         $xmlDoc->saveXML($xmlDoc);
                         $xmlDoc->save($this->_origin);
-                        //fputs($handle, $xmlDoc);
-                        //fclose($handle);
                 }
                 
          }
