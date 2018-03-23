@@ -40,5 +40,49 @@ class Tasks extends XML_Model {
 			);
 			return $config;
 		}
+                
+        protected function store()
+	{
+		
+		// rebuild the keys table
+		$this->reindex();
+		//---------------------
+                
+                 $this->xml = simplexml_load_file(realpath($this->_origin));
+		    if ($this->xml === false) {
+			      // error so redirect or handle error
+			      header('location: /404.php');
+			      exit;
+		}
+		
+		if (($handle = fopen($this->_origin, "w")) !== FALSE)
+		{
+                    echo "begin ";
+                    $xmlDoc = new DOMDocument( "1.0");
+                    $xmlDoc->preserveWhiteSpace = false;
+                    $xmlDoc->formatOutput = true;
+                    $data = $xmlDoc->createElement($this->xml->getName());
+                    foreach($this->_data as $key => $value)
+                    {
+                        $task  = $xmlDoc->createElement($this->xml->children()->getName());
+                        foreach ($value as $itemkey => $record ) {
+                            if($itemkey == 'id') {
+                                $task->setAttribute($itemkey, $record);
+                              
+                            } else {
+                                if($record != NULL) {
+                                    $item = $xmlDoc->createElement($itemkey, htmlspecialchars($record));                                    
+                                }
+                                $task->appendChild($item);
+                            }
+                        }
+                            $data->appendChild($task);
+                    }
+                        $xmlDoc->appendChild($data);
+                        $xmlDoc->saveXML($xmlDoc);
+                        $xmlDoc->save($this->_origin);
+                }
+                
+         }
 }
 ?>
