@@ -41,6 +41,48 @@ class Tasks extends XML_Model {
 			return $config;
 		}
                 
+                protected function load()
+                {
+                    $first = true;
+                    $dataindex = 1;
+                    $count = 0;
+                    if (($tasks = simplexml_load_file($this->_origin)) !== FALSE)
+                    {
+                            foreach ($tasks as $task) {
+                                    $record = new stdClass();
+                                    $record->id = (int) $task['id'];
+                                    $record->task = (string) $task->task;
+                                    $record->priority = (int) $task->priority;
+                                    $record->size = (int) $task->size;
+                                    $record->group = (int) $task->group;
+                                    $record->deadline = (string) $task->deadline;
+                                    if((int) $task->status != NULL) {
+                                        $record->status = (int) $task->status;
+                                    } else {
+                                       $record->status = ""; 
+                                    }
+                                    $record->flag = (int) $task->flag;
+
+                                    $this->_data[$record->id] = $record;
+                            //}
+                            if($first){
+                                    foreach ($task as $key => $value) {
+                                            $keyfieldh[] = $key;	
+                                            //echo " key: ".$key." value: ".$value;
+                                            //echo " keyfieldh: " . $keyfieldh[$count];
+                                            //var_dump((string)$value);
+                                            $count++;
+                                    }
+                                    $this->_fields = $keyfieldh;
+                                }
+                            $first = false; 
+                    }
+
+		// rebuild the keys table
+                    $this->reindex();
+                    }
+                }
+                
         protected function store()
 	{
 		
@@ -57,7 +99,6 @@ class Tasks extends XML_Model {
 		
 		if (($handle = fopen($this->_origin, "w")) !== FALSE)
 		{
-                    echo "begin ";
                     $xmlDoc = new DOMDocument( "1.0");
                     $xmlDoc->preserveWhiteSpace = false;
                     $xmlDoc->formatOutput = true;
