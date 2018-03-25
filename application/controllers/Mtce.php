@@ -73,6 +73,7 @@
 		public function add()
 		{
 			$task = $this->tasks->create();
+                        $task->id = null;
 			$this->session->set_userdata('task', $task);
 			$this->showit();
 		}
@@ -93,7 +94,9 @@
 		{
 			$this->load->helper('form');
 			$task = $this->session->userdata('task');
-			$this->data['id'] = $task->id;
+                        
+                        $this->data['id'] = $task->id;
+                     
 
 			// if no errors, pass an empty message
 			if ( ! isset($this->data['error']))
